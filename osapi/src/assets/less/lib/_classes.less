@@ -1,0 +1,435 @@
+/**
+ * Tool classes
+ *   1.clearfix
+ *   2.
+ */
+@import "./_variables.less";
+
+/* 清除浮动 */
+.clearfix:before,
+.clearfix:after {
+  content: "";
+  display: block;
+}
+
+.clearfix:after {
+  clear: both;
+  overflow: hidden;
+}
+
+.clearfix {
+  zoom: 1;
+  /* for ie6 & ie7 */
+}
+
+.clear {
+  clear: both;
+  display: block;
+  font-size: 0;
+  height: 0;
+  line-height: 0;
+  overflow: hidden;
+}
+
+/* 设置显示和隐藏，通常用来与 js 配合 */
+.d-n {
+  display: none;
+}
+
+.d-b {
+  display: block;
+}
+
+/* 设置浮动，减少浮动带来的 bug */
+
+.f-l {
+  float: left;
+}
+
+.f-r {
+  float: right;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.pos-fixed {
+  position: fixed;
+}
+
+.pos-sticky {
+  position:sticky;
+}
+.pos-relative {
+  position:relative;
+}
+.pos-absolute {
+  position:absolute;
+}
+
+
+.shadow-radius {
+  box-shadow: 0px 0px 4px #c0bfbf81;
+  border-radius: 15px;
+}
+.shadow {
+  box-shadow: -1px -1px 4px #c0bfbf81;
+}
+
+.select-n {
+  user-select: none;
+}
+
+/* ************************ Mixin ************************** */
+
+/* **********************margin******************** */
+
+// margin-top=================
+.mt(50);
+
+.mt(@n, @i: 0) when (@i =< @n) {
+  .mt-@{i} {
+    margin-top: @i+0px;
+  }
+
+  .mt(@n, (@i + 5));
+}
+
+// margin-bottom=================
+.mb(50);
+
+.mb(@n, @i: 0) when (@i =< @n) {
+  .mb-@{i} {
+    margin-bottom: @i+0px;
+  }
+
+  .mb(@n, (@i + 5));
+}
+
+// margin-right=================
+.mr(50);
+
+.mr(@n, @i: 0) when (@i =< @n) {
+  .mr-@{i} {
+    margin-right: @i+0px;
+  }
+
+  .mr(@n, (@i + 5));
+}
+
+// margin-left=================
+.ml(50);
+
+.ml(@n, @i: 0) when (@i =< @n) {
+  .ml-@{i} {
+    margin-left: @i+0px;
+  }
+
+  .ml(@n, (@i + 5));
+}
+
+// margin-x=================
+.mx(50);
+
+.mx(@n, @i: 0) when (@i =< @n) {
+  .mx-@{i} {
+    margin-left: @i+0px;
+    margin-right: @i+0px;
+  }
+
+  .mx(@n, (@i + 5));
+}
+
+// margin-y=================
+.my(50);
+
+.my(@n, @i: 0) when (@i =< @n) {
+  .my-@{i} {
+    margin-top: @i+0px;
+    margin-bottom: @i+0px;
+  }
+
+  .my(@n, (@i + 5));
+}
+// margin=================
+.m(50);
+
+.m(@n, @i: 0) when (@i =< @n) {
+  .m-@{i} {
+    margin-top: @i+0px;
+    margin-bottom: @i+0px;
+    margin-left: @i+0px;
+    margin-right: @i+0px;
+  }
+
+  .m(@n, (@i + 5));
+}
+
+/* **********************padding******************** */
+
+// padding=================
+.p(50);
+
+.p(@n, @i: 0) when (@i =< @n) {
+  .p-@{i} {
+    padding-top: @i+0px;
+    padding-bottom: @i+0px;
+    padding-left: @i+0px;
+    padding-right: @i+0px;
+  }
+
+  .p(@n, (@i + 5));
+}
+
+// padding-top=================
+.pt(50);
+
+.pt(@n, @i: 0) when (@i =< @n) {
+  .pt-@{i} {
+    padding-top: @i+0px;
+  }
+
+  .pt(@n, (@i + 5));
+}
+
+// padding-bottom=================
+.pb(50);
+
+.pb(@n, @i: 0) when (@i =< @n) {
+  .pb-@{i} {
+    padding-bottom: @i+0px;
+  }
+
+  .pb(@n, (@i + 5));
+}
+
+// padding-right=================
+.pr(50);
+
+.pr(@n, @i: 0) when (@i =< @n) {
+  .pr-@{i} {
+    padding-right: @i+0px;
+  }
+
+  .pr(@n, (@i + 5));
+}
+
+// padding-left=================
+.pl(50);
+
+.pl(@n, @i: 0) when (@i =< @n) {
+  .pl-@{i} {
+    padding-left: @i+0px;
+  }
+
+  .pl(@n, (@i + 5));
+}
+
+// padding-x=================
+.px(50);
+
+.px(@n, @i: 0) when (@i =< @n) {
+  .px-@{i} {
+    padding-left: @i+0px;
+    padding-right: @i+0px;
+  }
+
+  .px(@n, (@i + 5));
+}
+
+// padding-r=================
+.py(50);
+
+.py(@n, @i: 0) when (@i =< @n) {
+  .py-@{i} {
+    padding-top: @i+0px;
+    padding-bottom: @i+0px;
+  }
+
+  .py(@n, (@i + 5));
+}
+
+/* **********************position******************** */
+
+// position-r=================
+.posr(50);
+
+.posr(@n, @i: 0) when (@i =< @n) {
+  .pos-r-@{i} {
+    right: @i+0px;
+  }
+
+  .posr(@n, (@i + 5));
+}
+
+// position-l=================
+.posl(50);
+
+.posl(@n, @i: 0) when (@i =< @n) {
+  .pos-l-@{i} {
+    left: @i+0px;
+  }
+
+  .posl(@n, (@i + 5));
+}
+
+// position-t=================
+.post(50);
+
+.post(@n, @i: 0) when (@i =< @n) {
+  .pos-t-@{i} {
+    top: @i+0px;
+  }
+
+  .post(@n, (@i + 5));
+}
+
+// position-t=================
+.posb(50);
+
+.posb(@n, @i: 0) when (@i =< @n) {
+  .pos-b-@{i} {
+    bottom: @i+0px;
+  }
+
+  .posb(@n, (@i + 5));
+}
+
+// position-x=================
+.posx(50);
+
+.posx(@n, @i: 0) when (@i =< @n) {
+  .pos-x-@{i} {
+    left: @i+0px;
+    right: @i+0px;
+  }
+
+  .posx(@n, (@i + 5));
+}
+
+// position-y=================
+.posy(50);
+
+.posy(@n, @i: 0) when (@i =< @n) {
+  .pos-y-@{i} {
+    top: @i+0px;
+    bottom: @i+0px;
+  }
+
+  .posy(@n, (@i + 5));
+}
+
+// position=================
+.pos(50);
+
+.pos(@n, @i: 0) when (@i =< @n) {
+  .pos-@{i} {
+    top: @i+0px;
+    bottom: @i+0px;
+    left: @i+0px;
+    right: @i+0px;
+  }
+
+  .pos(@n, (@i + 5));
+}
+
+/* **********************color(text/bg)******************** */
+
+// text-color=================
+each(@colors, {
+    .text-@{key} {
+      color: @value;
+    }
+  }
+);
+
+// bg-color=================
+each(@colors, {
+    .bg-@{key} {
+      background-color: @value;
+    }
+  }
+);
+
+/* **********************size(font/icon)******************** */
+
+// font-size=================
+each(@fontSize, {
+    .fs-@{key} {
+      font-size: @value;
+    }
+  }
+);
+
+// font-weight=================
+each(@fontWeight, {
+    .fw-@{key} {
+      font-weight: @value;
+    }
+  }
+);
+
+// icon-size=================
+each(@iconSize, {
+    .ics-@{key} {
+      font-size: @value;
+    }
+  }
+);
+
+/* **********************font-family******************** */
+
+// font-family=================
+each(@fontFamily, {
+    .family-@{key} {
+      font-family: @value;
+    }
+  }
+);
+
+/* **********************hover-color******************** */
+each(@colors, {
+  .hover-@{key}:hover {
+    color: @value;
+    transition: 0.3s;
+  }
+});
+
+/* **********************border-radius******************** */
+each(@radiusSize, {
+  .radius-@{key} {
+    border-radius: @value;
+  }
+}
+);
+
+each(@radiusPercent, {
+  .radius-p-@{key} {
+    border-radius: @value;
+  }
+}
+);
+
+each(@zIndex, {
+  .z-@{key} {
+    z-index: @value;
+  }
+}
+);
+
+// .media-right-bar {
+//   display: block;
+//   // >=1200
+//   @media screen and(min-width:1200px) {
+//     display: block;
+//   }
+//   // >=1200,<=900
+//   @media screen and(max-width:1200px) and (min-width:920px){
+//     display: block;
+//   }
+//   //<900
+//   @media screen and (max-width:920px){
+//     display: none;
+//   }
+// }
