@@ -2,7 +2,7 @@
     <h1>
         <span style='font-size:40px;font-weight:700;'>👋 OSAPI - 开源Api管理平台</span><br>
          <img src="https://img.shields.io/github/stars/yesmore/OSAPI.svg" alt="star"/>
-        <img src="https://img.shields.io/github/package-json/v/yesmore/OSAPI" alt="version"/>
+        <img src="https://img.shields.io/github/forks/yesmore/OSAPI" alt="fork"/>
     <img src="https://img.shields.io/github/issues/yesmore/OSAPI" alt="issues"/><br>
      <img src="https://img.shields.io/github/license/yesmore/OSAPI" alt="mit"/>
     </h1>
@@ -10,22 +10,21 @@
 
 
 
-<span style='float:right'>**阅读文档**：中文版 | [English](https://github.com/yesmore/OSAPI)</span>
+<div style='float:right'><strong>阅读文档</strong>：中文版 | <a href='https://github.com/yesmore/OSAPI'>English</a></div>
 
 ## ⚡️最新版本
 
 ### v0.1.0_beta.1
 
-- 更新内容
+更新内容：
 
-数据、数据类型、数据分类、角色授权、管理员、权限的增删改查
+> 数据、数据类型、数据分类、角色授权、管理员、权限的增删改查
 
-- 修复 Bug
-  
+修复 Bug：
 
-无
+> 无
 
-- 线上版本：当前最新版已上线
+线上版本：最新版已上线
 
 
 
