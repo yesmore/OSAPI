@@ -73,13 +73,13 @@ export class AdminService {
   }
 
   // 用户权限判断
-  async checkAuth(req) {
-    /*
+  /*async checkAuth(req) {
+    /!*
        1、获取当前用户的角色    （如果超级管理员跳过权限判断 is_super=1）
        2、根据角色获取当前角色的权限列表
        3、获取当前访问的url 对应的权限id
        4、判断当前访问的url对应的权限id 是否在权限列表中的id中
-     */
+     *!/
 
     //  1、获取当前用户的角色
     let pathname: string = req.baseUrl
@@ -100,7 +100,7 @@ export class AdminService {
     })
     // console.log('当前角色权限有：',roleAccessArray);
 
-    //   3、获取当前访问的url 对应的权限id
+    // 3、获取当前访问的url 对应的权限id
     let authResult = await this.accessService.find({ "url": pathname });
     // console.log('有权限存在：',authResult[0])
     if (authResult.length > 0) {
@@ -116,5 +116,39 @@ export class AdminService {
       return false;
     }
     // return true
+  }*/
+
+  async checkAuth(userInfo, url) {
+    try {
+      let user = await this.find({ username:userInfo.username })
+      let { role_id, is_super } = user[0]
+      if (is_super == 1 ) {
+        return true;
+      }
+      // 2、根据角色获取当前角色的权限列表
+      let accessRes = await this.roleAccessService.find({ role_id })
+      let roleAccessArray = [];
+      accessRes.map(access => {
+        roleAccessArray.push(access.access_id.toString())
+      })
+      // console.log('当前角色权限有：',roleAccessArray);
+
+      // 3、获取当前访问的url 对应的权限id
+      url = url.replace(`/${Config.adminPath}/`, '')
+      let authResult = await this.accessService.find({ url });
+      // console.log('有权限存在：',authResult[0])
+      if (authResult.length > 0) {
+        // @ts-ignore
+        // console.log(url, roleAccessArray.indexOf(authResult[0]._id.toString()) !== -1)
+        // 4、判断当前访问的url对应的权限id 是否在权限列表中的id中
+        // @ts-ignore
+        return roleAccessArray.indexOf(authResult[0]._id.toString()) !== -1;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      return false;
+    }
+
   }
 }

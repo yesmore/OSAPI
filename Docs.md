@@ -1,12 +1,316 @@
-# 快速开始
+<div align=center>
+    <h1>
+        <span style='font-size:40px;font-weight:700;'>OSAPI 开发文档</span><br>
+         <img src="https://img.shields.io/github/stars/yesmore/OSAPI.svg" alt="star"/>
+    <img src="https://img.shields.io/github/issues/yesmore/OSAPI" alt="star"/>
+     <img src="https://img.shields.io/github/license/yesmore/OSAPI" alt="star"/>
+    </h1>
+</div>
 
-## Installation
+<span style='float:right'>**阅读文档**：中文版 | [English](https://github.com/yesmore/OSAPI)</span>
+
+# 目录
+
+> [项目结构](#项目结构)
+>
+> [前端](#前端)
+>
+> [后端](#后端)
+>
+> [线上部署](#线上部署)
+>
+> [接口文档](#接口文档)
+
+
+
+# 项目结构
+
+
+
+```js
+|- api/
+	|- libs/
+    	|- db/
+	|- public/
+    	|- upload/
+	|- src/
+    	|- config/
+    	|- interface/
+    	|- middleware/
+    	|- module/
+		|- service/
+		|- app.module.ts/
+		|- mainr.ts
+	|- config/
+		|- config.default.js
+		|- plugin.js
+	|- test/
+	|- views/
+	|- package.json
+	|- README.md
+	|- ...
+
+|- osapi/
+	|- dist/
+	|- public/
+	|- src/
+		|- assets/
+    	|- components/
+		|- router/
+		|- utils/
+		|- views/
+    	|- App.vue
+		|- main.ts
+		|- env.d.ts
+		|- vue.d.ts
+	|- package.json
+	|- README.md
+	|- vite.config.ts
+	|- ...
+```
+
+<a href='#目录' style='float:right'>回到顶部</a>
+
+# 前端
+
+架构：**Vue3 + Typescript + Vite2 + Element-Plus**
+
+### 初始化项目
+
+#### vite + vue3.0 
+
+```bash
+$ mkdir project
+$ cd project
+
+# 一条命令初始化 vue3+vite2
+$ npm init @vitejs/app your-vue-app-name --template vue-ts
+```
+
+<a href='#目录' style='float:right'>回到顶部</a>
+
+### 依赖安装
+
+#### element-plus
+
+```bash
+# 安装
+$ npm install element-plus --save
+```
+
+在`main.ts`全局引入Vant
+
+```typescript
+import ElementPlus from 'element-plus';
+import 'element-plus/dist/index.css'
+
+createApp(App)
+  .use(ElementPlus)
+  .mount('#app')
+```
+
+<a href='#目录' style='float:right'>回到顶部</a>
+
+#### Less
+
+安装less预处理器
+
+```bash
+$ npm i less less-loader -D
+# or
+$ yarn add less less-loader -D
+```
+
+在 `vue3/src/`目录下新建 `asserts` 文件夹，然后在 `vue3/vite.config.ts` 配置如下内容.
+
+```typescript
+import { defineConfig, loadEnv } from 'vite'
+
+export default defineConfig(({ command, mode }) => {
+  return {
+    ...
+    css: {
+      preprocessorOptions: {
+        less: {
+          additionalData: '@import "@/assets/less/base.less";'
+        }
+      }
+    }
+  }
+})
+
+```
+
+在 main.ts 中全局引入：
+
+```typescript
+import '@/assets/less/base.css'
+```
+
+> asserts文件夹中的 less 工具类库可以从github下载或者自己编写：[Tool-Class-of-CSS](https://github.com/yesmore/Tool-Class-of-CSS)
+
+<a href='#目录' style='float:right'>回到顶部</a>
+
+#### Axios
+
+> 配置 http 请求模块
+
+```bash
+$ npm i -s axios
+```
+
+我封装了一个 `request` 工具模块作为独立的**http**请求模块，位于 `vue3/src/utils/request.ts` 中；
+
+```js
+import axios from "axios";
+
+const _APP_BASE_API = import.meta.env.VITE_APP_BASE_API
+
+const http = axios.create({
+  // baseURL: '/api',
+  baseURL: _APP_BASE_API,
+  timeout: 100000, // request timeout
+  headers: {
+    // 设置token
+    authorization: 'Bearer ' + localStorage.getItem('token') || '',
+  }
+})
+
+export default http
+
+```
+
+```js
+// xxx.vue
+import http from './utils/request'
+
+const fetchData = async () => {
+    let res = await http.get('http://v2.aoau.top/pb?p=6)
+    console.log(res.data)
+}
+
+```
+
+其中，常量 **_APP_BASE_API** 是baseURL的环境变量，在下面两个文件中有定义：
+
+**开发选项**
+
+```js
+// vue3/.env.development
+VITE_APP_BASE_API = http://127.0.0.1:3009
+```
+
+**生产选项**
+
+```js
+// vue3/.env.production
+VITE_APP_BASE_API = http://v3.aoau.top
+```
+
+vite会根据配置文件调用相对的baseURL
+
+注意：配置的环境变量需要在 `vue3/src/env.d.ts` 中声明才能正常使用：
+
+```typescript
+declare module '*.vue' {
+  import { DefineComponent } from 'vue'
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/ban-types
+  const component: DefineComponent<{}, {}, any>
+  export default component
+}
+
+// 环境变量提示
+interface ImportMetaEnv {
+  VITE_APP_BASE_API: string,
+  VITE_APP_IMG_API: string
+}
+```
+
+<a href='#目录' style='float:right'>回到顶部</a>
+
+### 基本配置
+
+#### Iconfont
+
+在官网 [阿里巴巴图标库](https://www.iconfont.cn/) 中创建的项目，添加需要的图标并下载下来，将文件夹放在 `vue3/src/assets` 中，然后在 main.ts 中全局引入：
+
+```typescript
+import '@/assets/iconfont/iconfont.css'
+```
+
+项目中使用：
+
+```vue
+<i class="iconfont icon-Wifi"></i>
+```
+
+<a href='#目录' style='float:right'>回到顶部</a>
+
+#### Vuex
+
+该项目使用 store 来保存登陆用户的状态，主要有两个状态：
+
+```typescript
+export interface State {
+  isLogin: boolean,
+  username: string,
+}
+  
+state: localStorage.getItem('store') ? getterLsState() : {
+  isLogin: false, // 是否登录
+  username: '',	  // 用户名	
+},  
+```
+
+每次更新用户状态（登陆/注销/关闭页面）时，会触发 **state** 的更新，最新状态经过 base64编码后保存在本地存储中（localStorage），在 `vue3/src/utils/localStorage.ts` 中在定义了 set/get 本地存储的方法：
+
+```typescript
+import {Base64} from 'js-base64'
+
+export const getterLsState = () => {
+  return JSON.parse(Base64.decode(localStorage.getItem('store') || ''))
+}
+
+export const setterLsState = (store:any) => {
+  localStorage.setItem(
+    "store",
+    Base64.encode(JSON.stringify(store.state))
+  )
+}
+```
+
+#### Vue-Router
+
+前端路由守卫，通过 store 中保存的 **isLogin** 值来判断用户是否登录。
+
+```typescript
+beforeEnter:(to,from) =>{
+  if (!getterLsState().isLogin && (to.path === '/control' || to.path === '/control/focus' || to.path === '/control/dataType' || to.path === '/control/data' || to.path === '/control/dataCate')) {
+    ToolMsg('未登陆-路由','warning')
+    router.push(from.path)
+  }
+},
+```
+
+<a href='#目录' style='float:right'>回到顶部</a>
+
+
+
+
+
+# 后端
+
+<a href='#目录' style='float:right'>回到顶部</a>
+
+### 初始化项目
+
+#### Installation
 
 ```bash
 $ npm install
 ```
 
-## Running the app
+#### Running the app
 
 ```bash
 # development
@@ -19,7 +323,7 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
-## Test
+#### Test
 
 ```bash
 # unit tests
@@ -32,15 +336,51 @@ $ npm run test:e2e
 $ npm run test:cov
 ```
 
-## License
-
-[MIT licensed](LICENSE).
+<a href='#目录' style='float:right'>回到顶部</a>
 
 
+
+### 数据结构
+
+#### RBAC模式数据库设计图
+
+![RBAC模式数据库设计图](https://cdn.jsdelivr.net/gh/yesmore/img/img/RBAC模式数据库设计图.png)
+
+
+
+
+
+#### 后台管理数据关系图
+
+![后台管理数据关系图](https://cdn.jsdelivr.net/gh/yesmore/img/img/数据关系图.png)
+
+<a href='#目录' style='float:right'>回到顶部</a>
+
+### 基本配置
+
+#### 中间件配置
+
+...肝
+
+#### 路由守卫
+
+...肝
+
+
+
+<a href='#目录' style='float:right'>回到顶部</a>
+
+# 线上部署
+
+...肝
+
+<a href='#目录' style='float:right'>回到顶部</a>
 
 # 接口文档
 
+> 还在肝
 
+<a href='#目录' style='float:right'>回到顶部</a>
 
 ## 一、Admin模块
 
@@ -304,9 +644,7 @@ $ npm run test:cov
 示例：
 
 ```javascript
-{
-    
-}
+{    }
 ```
 
 
@@ -336,9 +674,7 @@ $ npm run test:cov
 示例：
 
 ```javascript
-{
-    
-}
+{    }
 ```
 
 
@@ -369,9 +705,7 @@ $ npm run test:cov
 示例：
 
 ```javascript
-{
-    
-}
+{    }
 ```
 
 
@@ -397,9 +731,7 @@ $ npm run test:cov
 示例：
 
 ```javascript
-{
-    
-}
+{    }
 ```
 
 
@@ -431,9 +763,7 @@ $ npm run test:cov
 示例：
 
 ```javascript
-{
-    
-}
+{    }
 ```
 
 
@@ -465,9 +795,7 @@ $ npm run test:cov
 示例：
 
 ```javascript
-{
-    
-}
+{    }
 ```
 
 
@@ -495,9 +823,7 @@ $ npm run test:cov
 示例：
 
 ```javascript
-{
-    
-}
+{    }
 ```
 
 
@@ -521,9 +847,7 @@ $ npm run test:cov
 示例：
 
 ```javascript
-{
-    
-}
+{    }
 ```
 
 
@@ -551,9 +875,7 @@ $ npm run test:cov
 示例：
 
 ```javascript
-{
-    
-}
+{    }
 ```
 
 
@@ -587,9 +909,7 @@ $ npm run test:cov
 示例：
 
 ```javascript
-{
-    
-}
+{    }
 ```
 
 
@@ -617,9 +937,7 @@ $ npm run test:cov
 示例：
 
 ```javascript
-{
-    
-}
+{    }
 ```
 
 
@@ -649,9 +967,7 @@ $ npm run test:cov
 示例：
 
 ```javascript
-{
-    
-}
+{    }
 ```
 
 
@@ -682,9 +998,7 @@ $ npm run test:cov
 示例：
 
 ```javascript
-{
-    
-}
+{    }
 ```
 
 
@@ -713,22 +1027,8 @@ $ npm run test:cov
 示例：
 
 ```javascript
-{
-    
-}
+{    }
 ```
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -760,7 +1060,7 @@ $ npm run test:cov
 | 405  | 不存在                                 |
 | 501  | 服务器出错                             |
 
-
+<a href='#目录' style='float:right'>回到顶部</a>
 
 
 

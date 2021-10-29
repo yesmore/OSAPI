@@ -1,12 +1,14 @@
-import {Body, Controller, Get, Post,  Query} from '@nestjs/common';
+import {Body, Controller, Get, Post, Query, UseGuards} from '@nestjs/common';
 import {Config} from '../../../config/config'
 import {AdminService} from "../../../service/admin/admin.service";
 import {ToolsService} from "../../../service/tools/tools.service";
 import {RoleService} from "../../../service/role/role.service";
 import {AccessService} from "../../../service/access/access.service";
 import * as mongoose from "mongoose";
+import {JwtAuthGuard} from "../../auth/jwt-auth.guard";
 
 @Controller(`${Config.adminPath}/access`)
+@UseGuards(JwtAuthGuard)
 export class AccessController {
   constructor(
     private roleService:RoleService,

@@ -1,10 +1,12 @@
-import {Body, Controller, Get, Post, Query} from '@nestjs/common';
+import {Body, Controller, Get, Post, Query, UseGuards} from '@nestjs/common';
 import {Config} from '../../../config/config'
 import {DataTypeAttributeService} from "../../../service/data-type-attribute/data-type-attribute.service";
 import {DataTypeService} from "../../../service/data-type/data-type.service";
 import {ToolsService} from "../../../service/tools/tools.service";
+import {JwtAuthGuard} from "../../auth/jwt-auth.guard";
 
 @Controller(`${Config.adminPath}/dataTypeAttribute`)
+@UseGuards(JwtAuthGuard)
 export class DataTypeAttributeController {
   constructor(
     private dataTypeService:DataTypeService,

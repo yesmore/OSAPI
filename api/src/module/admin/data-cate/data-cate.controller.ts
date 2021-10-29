@@ -1,10 +1,12 @@
-import {Body, Controller, Get, Post} from '@nestjs/common';
+import {Body, Controller, Get, Post, Req, UseGuards} from '@nestjs/common';
 import {Config} from '../../../config/config'
 import {DataCateService} from "../../../service/data-cate/data-cate.service";
 import {ToolsService} from "../../../service/tools/tools.service";
 import * as mongoose from "mongoose";
+import {JwtAuthGuard} from "../../auth/jwt-auth.guard";
 
 @Controller(`${Config.adminPath}/dataCate`)
+@UseGuards(JwtAuthGuard)
 export class DataCateController {
   constructor(
     private dataCateService:DataCateService,
@@ -12,7 +14,7 @@ export class DataCateController {
   ) {}
 
   @Get()
-  async index() {
+  async index(@Req() req) {
     try {
       // 关联查询出下一级分类
       let res = await this.dataCateService.findDataCateAttributeWithCateID()

@@ -33,7 +33,7 @@ import { DataAttrService } from '../../service/data-attr/data-attr.service';
     DataTypeAttributeService,
     DataCateService,
     DataService,
-    DataAttrService
+    DataAttrService,
   ],
   exports: [ // 暴露（中间件、模块使用）
     ToolsService,
@@ -46,7 +46,7 @@ import { DataAttrService } from '../../service/data-attr/data-attr.service';
     DataTypeAttributeService,
     DataCateService,
     DataService,
-    DataAttrService
+    DataAttrService,
   ]
 })
 export class PublicModule {}

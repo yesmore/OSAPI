@@ -11,9 +11,10 @@ import {DbModule} from '@lib/db';
 // 全局配置
 import {Config} from './config/config'
 import {PublicModule} from './module/public/public.module';
+import { AuthModule } from './module/auth/auth.module';
 
 @Module({
-  imports: [AdminModule, PcModule, DbModule, PublicModule],
+  imports: [AdminModule, PcModule, DbModule, PublicModule, AuthModule],
   controllers: [],
   providers: [],
 })
@@ -22,7 +23,7 @@ export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(AdminauthMiddleware)
-      .forRoutes(`${Config.adminPath}/*`)
+      .forRoutes(`/*`)
       .apply(InitMiddleware)
       .forRoutes('*')
       .apply(DefaultMiddleware)

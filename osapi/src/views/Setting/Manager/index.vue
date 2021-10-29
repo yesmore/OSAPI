@@ -186,7 +186,6 @@
       @selection-change="handleSelectionChange"
       v-loading="loading"
       :header-cell-style="{background: 'rgba(0, 0, 0, 0.02)'}"
-      element-loading-text="加载中..."
       element-loading-spinner="el-icon-loading"
       element-loading-background="rgba(0, 0, 0, 0.01)"
       border

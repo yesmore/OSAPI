@@ -166,7 +166,6 @@ const handleNodeClick = (data) => {
         style="width: 100%"
         v-loading="loading"
         @selection-change="handleSelectionChange"
-        element-loading-text="加载中..."
         element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0.01)"
         :header-cell-style="{background: 'rgba(0, 0, 0, 0.02)'}"

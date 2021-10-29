@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { ref, reactive, onMounted, watch } from 'vue'
-import { useRouter, onBeforeRouteUpdate } from 'vue-router'
-import http from "../../utils/request";
 import {ToolMsg} from "../../utils/ToolMsg";
-import { ElNotification, ElMessageBox } from 'element-plus'
 
 const VITE_APP_BASE_API = import.meta.env.VITE_APP_BASE_API
+
 const actionUrl = VITE_APP_BASE_API + '/admin/focus/upload'
+const headers = {
+  authorization: 'Bearer ' + localStorage.getItem('token') || '',
+}
 const props = defineProps({
   form: {}
 })
@@ -32,7 +32,6 @@ const beforeUpload = (file) => {
 }
 const emit = defineEmits(['on-upload'])
 
-
 </script>
 
 <template>
@@ -41,6 +40,7 @@ const emit = defineEmits(['on-upload'])
     class="upload-demo"
     drag
     :action="actionUrl"
+    :headers="headers"
     multiple
     :data="props.form"
     :before-upload="beforeUpload"

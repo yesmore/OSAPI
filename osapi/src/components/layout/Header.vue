@@ -4,13 +4,13 @@ import { useRouter, onBeforeRouteUpdate } from 'vue-router'
 import http from "../../utils/request";
 import {useStore} from "../../store";
 import { ToolMsg } from "../../utils/ToolMsg";
-import { setterLsState } from '../../utils/localStorage'
+import {getterLsState, setterLsState} from '../../utils/localStorage'
 
 const store = useStore()
 const router = useRouter()
 
 const data = reactive({
-  username: '游客',
+  username: getterLsState().username || '游客',
 })
 const activeIndex = ref('1')
 const handleSelect = (key:any, keyPath:any) => {
@@ -24,7 +24,9 @@ const logout = () => {
       data.username = '游客'
       ToolMsg('退出登陆', 'warning')
       router.push('/login')
+      localStorage.setItem('token', '')
       store.commit('SET_LoginState', false)
+      store.commit('SET_NAME', '')
       setterLsState(store)
     } else if (res.data.status === 401) {
       ToolMsg('未登陆', 'warning')
@@ -33,24 +35,29 @@ const logout = () => {
     }
   })
 }
-
+/*
 const isLogin = () => {
   http.get('/admin/login/isLogin').then(res => {
     if (res.data.status === 200) {
       // console.log('登陆了',res.data)
-      data.username = res.data.info
+      data.username = getterLsState().username
       return true
-    } else if (res.data.status === 401) {
+    } else if(res.data.status === 401) {
       data.username = '游客'
+      ToolMsg('未登陆-Header', 'warning')
       store.commit('SET_LoginState', false)
       setterLsState(store)
+      return false
+    } else if(res.data.status === 403 ) {
+      data.username = getterLsState().username+'-无权限'
+      ToolMsg('无权限-Header', 'warning')
       return false
     }
   })
 }
 onMounted(() => {
   isLogin()
-})
+})*/
 
 </script>
 

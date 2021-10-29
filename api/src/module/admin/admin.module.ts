@@ -1,5 +1,6 @@
 import { Module } from '@nestjs/common';
 import { PublicModule } from '../public/public.module'
+import { AuthModule } from '../auth/auth.module'
 
 import { MainController } from './main/main.controller';
 import { LoginController } from './login/login.controller';
@@ -15,11 +16,14 @@ import { DataController } from './data/data.controller';
 import { RedisModule } from 'nestjs-redis'
 import { Config } from '../../config/config'
 import { CacheService } from '../../service/cache/cache.service';
+import { AuthService } from '../auth/auth.service';
+import { JwtModule } from '@nestjs/jwt';
 
 @Module({
   imports: [
     PublicModule,
-    RedisModule.register(Config.redisOptions) // Redis
+    RedisModule.register(Config.redisOptions), // Redis
+
   ],
   providers: [CacheService],
   controllers: [

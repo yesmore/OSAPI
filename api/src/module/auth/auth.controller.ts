@@ -1,39 +1,22 @@
-import { Controller, Get, Response, Request, Post, Body } from '@nestjs/common';
-import { ToolsService } from '../../../service/tools/tools.service';
-import { AdminService } from '../../../service/admin/admin.service';
+import {Controller, UseGuards, Get, Post, Req, Body, Request, Response} from '@nestjs/common';
+import { AuthService } from './auth.service';
+import { AuthGuard } from '@nestjs/passport';
+import { JwtAuthGuard } from './jwt-auth.guard';
+import { ToolsService } from '../../service/tools/tools.service';
+import { AdminService } from '../../service/admin/admin.service';
 // import { AuthService } from '../../auth/auth.service';
-import { Config } from '../../../config/config'
+import { Config } from '../../config/config'
 
-@Controller(`${Config.adminPath}/login`) // http://127.0.0.1:4000/admin/login
-export class LoginController {
-
-  // 注入 - 获取实例
+@Controller(`${Config.adminPath}/login`)
+export class AuthController {
+  AuthService: any;
   constructor(
     private toolsService:ToolsService,
     private adminService:AdminService,
-    // private readonly authService: AuthService
-  ) {}
+    private readonly authService: AuthService
+  ){}
 
-  @Get()
-  async index(@Response() res) {
-    // console.log(res.locals.config)
-    try {
-      return await this.adminService.find()
-    } catch (e) {
-      return this.toolsService.resSend(res, 501, '出错了')
-    }
-  }
-
-  // @Post('create')
-  // async create() {
-  //   await this.adminService.create({
-  //     username: '西西',
-  //     password: this.toolsService.makeMd5('123')
-  //   })
-  // }
-
-  // 登陆逻辑
-  @Post('doLogin1')
+  @Post('doLogin')
   async doLogin(@Body() body, @Request() req, @Response() res) {
     // 接收数据
     let { username, password, code, currentCode } = body
@@ -50,10 +33,11 @@ export class LoginController {
           'password': password
         })
         if(user.length > 0) {
-          // let token = this.authService.createToken(userForToken);
+          let token = await this.authService.createToken(userForToken);
+          // console.log(token)
           this.toolsService.resSend(res, 200, '登陆成功', {
             username: user[0].username,
-            // token
+            token: token
           })
           // console.log(req.session.userInfo)
         } else {
@@ -66,32 +50,28 @@ export class LoginController {
     return body
   }
 
-  // 退出登陆
-  @Get('logout1')
-  logout(@Request() req, @Response() res) {
-    // console.log('logout',req.session.userInfo)
-    if (req.session.userInfo === undefined) {
+  // 是否登录
+  @Get('isLogin')
+  @UseGuards(JwtAuthGuard)
+  isLogin(@Req() req, @Response() res) {
+    console.log('isLogin',req.user)
+    if (req.user.response?.status === 403) {
+      this.toolsService.resSend(res, 403, '无权限')
+    } else if(req.user.response?.status === 401) {
       this.toolsService.resSend(res, 401, '未登陆')
     } else {
-      req.session.code = null
-      this.toolsService.resSend(res, 200, '已退出', req.session)
+      this.toolsService.resSend(res, 200, '已登陆', req.user.username)
     }
   }
 
-  // 是否登录
-  @Get('isLogin1')
-  isLogin(@Request() req, @Response() res) {
-    // console.log('isLogin',req.session.userInfo)
-    if ((req.session.userInfo === undefined) || (req.session.userInfo === null)) {
-
-      this.toolsService.resSend(res, 401, '未登陆')
-    } else {
-      this.toolsService.resSend(res, 200, '已登陆', req.session.userInfo.username)
-    }
+  // 退出登陆
+  @Get('logout')
+  logout( @Response() res) {
+    this.toolsService.resSend(res, 200, '已退出')
   }
 
   // 生成验证码
-  @Get('code1')
+  @Get('code')
   setCode(@Request() req, @Response() res) {
     const svgCaptcha = this.toolsService.captcha()
     // 设置session

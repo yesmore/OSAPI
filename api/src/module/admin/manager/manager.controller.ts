@@ -1,11 +1,13 @@
-import {Body, Controller, Get, Post, Response} from '@nestjs/common';
+import {Body, Controller, Get, Post, UseGuards} from '@nestjs/common';
 import {Config} from '../../../config/config'
 import {AdminService} from "../../../service/admin/admin.service";
 import {ToolsService} from "../../../service/tools/tools.service";
 import {RoleService} from "../../../service/role/role.service";
 import * as mongoose from "mongoose";
+import {JwtAuthGuard} from "../../auth/jwt-auth.guard";
 
 @Controller(`${Config.adminPath}/manager`)
+@UseGuards(JwtAuthGuard)
 export class ManagerController {
   constructor(
     private roleService:RoleService,
@@ -14,11 +16,11 @@ export class ManagerController {
   ) {}
 
   @Get()
+  @UseGuards(JwtAuthGuard)
   async index() {
     try {
       // 获取 admin & role 表关联数据
-      let res = await this.adminService.findAdminWithRole()
-      return res
+      return await this.adminService.findAdminWithRole()
     } catch (e) {
       return []
     }

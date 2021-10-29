@@ -66,7 +66,7 @@ export class ToolsService {
       writeImage.write(file.buffer);
 
       // 4、返回图片保存的地址
-      let saveDir = join(Config.uploadDir,day,d + extname(file.originalname));
+      let saveDir = join(Config.uploadDir, day, d + extname(file.originalname));
       return saveDir;
     } else {
       return ''

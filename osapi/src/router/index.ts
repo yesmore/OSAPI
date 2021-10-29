@@ -35,8 +35,8 @@ const routes: Array<RouteRecordRaw> = [
           description: '数据管理概览'
         },
         beforeEnter:(to,from) =>{
-          if (!getterLsState().isLogin && (to.path === '/control' || to.path === '/control/focus' || to.path === '/control/dataType')) {
-            ToolMsg('未登陆','warning')
+          if (!getterLsState().isLogin && (to.path === '/control' || to.path === '/control/focus' || to.path === '/control/dataType' || to.path === '/control/data' || to.path === '/control/dataCate')) {
+            ToolMsg('未登陆-路由','warning')
             router.push(from.path)
           }
         },
@@ -111,7 +111,7 @@ const routes: Array<RouteRecordRaw> = [
         },
         beforeEnter:(to,from) =>{
           if (!getterLsState().isLogin && (to.path === '/setting' || to.path ===  '/setting/role' || to.path === '/setting/manager' || to.path === '/setting/access')) {
-            ToolMsg('未登陆','warning')
+            ToolMsg('未登陆-路由','warning')
             router.push(from.path)
           }
         },

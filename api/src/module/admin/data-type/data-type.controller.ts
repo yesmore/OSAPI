@@ -1,9 +1,11 @@
-import {Body, Controller, Get, Post, Query} from '@nestjs/common';
+import {Body, Controller, Get, Post, Query, Req, UseGuards} from '@nestjs/common';
 import {Config} from '../../../config/config'
 import {DataTypeService} from "../../../service/data-type/data-type.service";
 import {ToolsService} from "../../../service/tools/tools.service";
+import {JwtAuthGuard} from "../../auth/jwt-auth.guard";
 
 @Controller(`${Config.adminPath}/dataType`)
+@UseGuards(JwtAuthGuard)
 export class DataTypeController {
   constructor(
     private dataTypeService:DataTypeService,
@@ -11,7 +13,7 @@ export class DataTypeController {
   ) {}
 
   @Get()
-  async index() {
+  async index(@Req() req) {
     try {
       let res = await this.dataTypeService.findDataTypeAttributeWithCateID()
       return this.toolsService.returnObj(200, '查询成功', res)

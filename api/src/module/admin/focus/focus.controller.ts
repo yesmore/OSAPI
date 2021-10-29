@@ -1,13 +1,15 @@
 /*
 * 首页图片上传管理
 * */
-import { Controller, Get, Post, Body, UseInterceptors,  UploadedFile  } from '@nestjs/common';
+import {Controller, Get, Post, Body, UseInterceptors, UploadedFile, UseGuards, Req} from '@nestjs/common';
 import {Config} from '../../../config/config'
 import { FocusService } from "../../../service/focus/focus.service";
 import { ToolsService } from "../../../service/tools/tools.service";
 import { FileInterceptor } from '@nestjs/platform-express';
+import {JwtAuthGuard} from "../../auth/jwt-auth.guard";
 
 @Controller(`${Config.adminPath}/focus`)
+@UseGuards(JwtAuthGuard)
 export class FocusController {
   constructor(
     private toolsService:ToolsService,
@@ -15,19 +17,19 @@ export class FocusController {
   ){}
 
   @Get()
-  async index() {
+  async index(@Req() req) {
     try {
       let res = await this.focusService.find()
       return this.toolsService.returnObj(200, '查询成功', res)
-    } catch (e) {
-      return this.toolsService.returnObj(501, '出错了')
+      } catch (e) {
+      return this.toolsService.returnObj(501, 'wc出错了')
     }
   }
 
   // 更新图片
   @Post('edit')
   @UseInterceptors(FileInterceptor('file'))
-  async doEdit(@Body() body, @UploadedFile() file) {
+  async doEdit(@Req() req, @Body() body, @UploadedFile() file) {
     try {
       let { _id } = body
       let res1 = await this.focusService.find({ _id })
@@ -46,7 +48,8 @@ export class FocusController {
       }
       return this.toolsService.returnObj(405, '不存在')
     } catch (e) {
-      return this.toolsService.returnObj(501, '出错了')
+      console.log(e)
+      return this.toolsService.returnObj(501, '出错了focu')
     }
   }
 

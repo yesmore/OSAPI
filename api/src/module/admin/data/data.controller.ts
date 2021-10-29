@@ -1,12 +1,14 @@
-import {Body, Controller, Get, Post, Query} from '@nestjs/common';
+import {Body, Controller, Get, Post, Query, Req, UseGuards} from '@nestjs/common';
 import {Config} from '../../../config/config'
 import {DataService} from "../../../service/data/data.service";
 import {DataAttrService} from "../../../service/data-attr/data-attr.service";
 import {ToolsService} from "../../../service/tools/tools.service";
 import { CacheService } from '../../../service/cache/cache.service';
+import {JwtAuthGuard} from "../../auth/jwt-auth.guard";
 
 
 @Controller(`${Config.adminPath}/data`)
+@UseGuards(JwtAuthGuard)
 export class DataController {
   constructor(
     private dataService:DataService,
@@ -16,9 +18,11 @@ export class DataController {
   ) {}
 
   @Get()
-  async index() {
+  async index(@Req() req,) {
     try {
       let cacheData = await this.cacheService.get('cacheData')
+      // let cacheData = await this.dataService.findDataByCateID()
+
       if (!cacheData) {
         // 关联查询出数据分类、类型分类
         cacheData = await this.dataService.findDataByCateID()
@@ -26,7 +30,7 @@ export class DataController {
       }
       return this.toolsService.returnObj(200, '查询成功', cacheData)
     } catch (e) {
-      console.log(e)
+      // console.log(e)
       return this.toolsService.returnObj(405, '不存在')
     }
   }
@@ -93,6 +97,7 @@ export class DataController {
             this.dataAttrService.update({attribute_value: item.attribute_value}, { _id:item._id })
           })
           await this.dataService.update(body,{ _id } )
+          await this.cacheService.clear();
           return this.toolsService.returnObj(200, '修改成功')
         }
       } else {

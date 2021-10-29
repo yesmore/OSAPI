@@ -22,6 +22,7 @@ let dialogFormVisible1 = ref(false)
 const foucsImgList = ref([])
 const loading = ref(true)
 const VITE_APP_BASE_API = import.meta.env.VITE_APP_BASE_API
+const VITE_APP_IMG_API = import.meta.env.VITE_APP_IMG_API
 
 // 获取图片
 const fetchImg = async () => {
@@ -29,7 +30,7 @@ const fetchImg = async () => {
   if(res.data.status === 200) {
     res.data.info.map(item => {
       item.updatedAt = mongoDateFormat(item.updatedAt)
-      item.preview = VITE_APP_BASE_API + "/"+ item.focus_img
+      item.preview = VITE_APP_IMG_API + "/"+ item.focus_img
     })
     foucsImgList.value = res.data.info
     loading.value = false
@@ -48,7 +49,6 @@ fetchImg()
 // 上传
 const handleUploadImg = (params) => {
   dialogFormVisible.value = params
-  foucsImgList.value = []
   fetchImg()
 }
 
@@ -123,7 +123,6 @@ const changeStatus = async (row) => {
       v-loading="loading"
       :header-cell-style="{background: 'rgba(0, 0, 0, 0.02)'}"
       element-loading-spinner="el-icon-loading"
-      element-loading-text="加载中..."
       element-loading-background="rgba(0, 0, 0, 0.01)"
       border
     >

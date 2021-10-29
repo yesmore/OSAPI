@@ -45,13 +45,14 @@ const doLogin = () => {
     currentCode: data.codeText
   }
   http.post('/admin/login/doLogin', userInfo).then(res => {
-    // console.log(res)
+
     if (res.data.status === 200) {
       ToolMsg('登陆成功','success')
-      router.push('/home')
+      localStorage.setItem('token', res.data.info.token)
       store.commit('SET_LoginState', true)
-      store.commit('SET_NAME', data.username)
+      store.commit('SET_NAME', res.data.info.username)
       setterLsState(store)
+      router.back()
     } else if (res.data.status === 201) {
       ToolMsg('验证码错误','warning')
     } else if (res.data.status === 202) {

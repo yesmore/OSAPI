@@ -1,12 +1,14 @@
-import { Controller, Get, Post, Body, Query, Response } from '@nestjs/common';
+import {Controller, Get, Post, Body, Query, Response, UseGuards} from '@nestjs/common';
 import {RoleService} from "../../../service/role/role.service";
 import {ToolsService} from "../../../service/tools/tools.service";
 import {Config} from '../../../config/config'
 import {AccessService} from "../../../service/access/access.service";
 import { RoleaccessService } from "../../../service/roleaccess/roleaccess.service";
 import * as mongoose from "mongoose";
+import {JwtAuthGuard} from "../../auth/jwt-auth.guard";
 
 @Controller(`${Config.adminPath}/role`)
+@UseGuards(JwtAuthGuard)
 export class RoleController {
   // 注入 - 获取实例
   constructor(
@@ -17,6 +19,7 @@ export class RoleController {
   ) {}
 
   @Get()
+  @UseGuards(JwtAuthGuard)
   async index() {
     try {
       return await this.roleService.find()

@@ -140,7 +140,6 @@ const openAttribute = (row) => {
         v-loading="loading"
         :header-cell-style="{background: 'rgba(0, 0, 0, 0.02)'}"
         element-loading-spinner="el-icon-loading"
-        element-loading-text="加载中..."
         element-loading-background="rgba(0, 0, 0, 0.01)"
         border
       >

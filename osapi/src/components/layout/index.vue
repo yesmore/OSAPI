@@ -1,15 +1,46 @@
 <script setup lang="ts">
 import { onMounted, ref, onUnmounted } from 'vue'
-import { useRouter, onBeforeRouteLeave } from 'vue-router'
+import {useRouter, onBeforeRouteLeave, onBeforeRouteUpdate} from 'vue-router'
 import { useStore } from "../../store";
 import { setterLsState, getterLsState } from '../../utils/localStorage'
 import Header from './Header.vue'
 import Aside from './Aside.vue'
 import Footer from './Footer.vue'
 import Breadcrumb from '../common/Breadcrumb.vue'
+import http from "../../utils/request";
+import {ToolMsg} from "../../utils/ToolMsg";
 
 const store = useStore()
 const router = useRouter()
+
+console.log(getterLsState())
+
+const isLogin = () => {
+  http.get('/admin/login/isLogin').then(res => {
+    if (res.data.status === 200) {
+      store.commit('SET_LoginState', true)
+      return true
+    } else if(res.data.status === 401) {
+      // data.username = '游客'
+      ToolMsg('未登陆-Header', 'warning')
+      store.commit('SET_LoginState', false)
+      setterLsState(store)
+      return false
+    } else if(res.data.status === 403 ) {
+      // data.username = getterLsState().username+'-无权限'
+      ToolMsg('无权限-Header', 'warning')
+      router.push('/home')
+      return false
+    }
+  })
+}
+// isLogin()
+onBeforeRouteUpdate(() => {
+  // let qR = isLogin()
+  // if (qR) {
+  //   console.log(qR)
+  // }
+})
 
 // console.log('store状态：',store.getters.getLoginState, store.getters.getName)
 // console.log('本地存储：',getterLsState())

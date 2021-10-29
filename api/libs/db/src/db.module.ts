@@ -31,6 +31,7 @@ const models = TypegooseModule.forFeature([
       useCreateIndex: true,
       useFindAndModify: false
     }),
+
     models
   ],
   providers: [DbService],
