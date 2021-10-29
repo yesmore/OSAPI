@@ -54,7 +54,11 @@
 - 数据库：**MongoDB 4.x **(typegoose 5.10)、**Redis** (nestjs-redis)
 - 打包工具：**Vite 2.5** (前端)、**Webpack** (后端)
 
+### 项目截图
 
+<div style='display:flex;'><img style='width:270px' src='https://cdn.jsdelivr.net/gh/yesmore/img/img/}@(`7)1CO7)Q(IG{RR1FOG7.png'/><img style='width:270px' src='https://cdn.jsdelivr.net/gh/yesmore/img/img/6]K}FZR84{K5$}`H$DYW177.png'/></div>
+
+<div style='display:flex;'><img style='width:270px' src='https://cdn.jsdelivr.net/gh/yesmore/img/img/3QT3L~T6GZDBQ9F62]Z{[DS.png'/><img style='width:270px' src='https://cdn.jsdelivr.net/gh/yesmore/img/img/D9F0GM}0~WO11)7PJ}@5GHI.png'/></div>
 
 ## 快速开始
 
