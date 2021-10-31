@@ -31,12 +31,6 @@ const models = TypegooseModule.forFeature([
     //   useCreateIndex: true,
     //   useFindAndModify: false
     // }),
-    TypegooseModule.forRoot('mongodb://song:242166@81.69.202.167/osapi?authSource=admin', {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      useCreateIndex: true,
-      useFindAndModify: false,
-    }),
     models
   ],
   providers: [DbService],
