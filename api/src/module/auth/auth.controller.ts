@@ -6,6 +6,7 @@ import { ToolsService } from '../../service/tools/tools.service';
 import { AdminService } from '../../service/admin/admin.service';
 // import { AuthService } from '../../auth/auth.service';
 import { Config } from '../../config/config'
+import { IpAddress } from '../../decorator/ip.decorator'
 
 @Controller(`${Config.adminPath}/login`)
 export class AuthController {
@@ -17,7 +18,7 @@ export class AuthController {
   ){}
 
   @Post('doLogin')
-  async doLogin(@Body() body, @Request() req, @Response() res) {
+  async doLogin(@IpAddress() clinetIp: string,@Body() body, @Request() req, @Response() res) {
     // 接收数据
     let { username, password, code, currentCode } = body
     let userForToken = {
@@ -37,7 +38,8 @@ export class AuthController {
           // console.log(token)
           this.toolsService.resSend(res, 200, '登陆成功', {
             username: user[0].username,
-            token: token
+            token: token,
+            ip: clinetIp,
           })
           // console.log(req.session.userInfo)
         } else {
@@ -55,9 +57,7 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   isLogin(@Req() req, @Response() res) {
     console.log('isLogin',req.user)
-    if (req.user.response?.status === 403) {
-      this.toolsService.resSend(res, 403, '无权限')
-    } else if(req.user.response?.status === 401) {
+    if(req.user.response?.status === 401) {
       this.toolsService.resSend(res, 401, '未登陆')
     } else {
       this.toolsService.resSend(res, 200, '已登陆', req.user.username)

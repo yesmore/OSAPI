@@ -25,6 +25,7 @@ const logout = () => {
       ToolMsg('退出登陆', 'warning')
       router.push('/login')
       localStorage.setItem('token', '')
+      localStorage.setItem('osIP', '')
       store.commit('SET_LoginState', false)
       store.commit('SET_NAME', '')
       setterLsState(store)
@@ -35,29 +36,23 @@ const logout = () => {
     }
   })
 }
-/*
+
 const isLogin = () => {
-  http.get('/admin/login/isLogin').then(res => {
-    if (res.data.status === 200) {
-      // console.log('登陆了',res.data)
-      data.username = getterLsState().username
-      return true
-    } else if(res.data.status === 401) {
-      data.username = '游客'
-      ToolMsg('未登陆-Header', 'warning')
-      store.commit('SET_LoginState', false)
-      setterLsState(store)
-      return false
-    } else if(res.data.status === 403 ) {
-      data.username = getterLsState().username+'-无权限'
-      ToolMsg('无权限-Header', 'warning')
-      return false
-    }
-  })
+  const loginState = store.getters.getLoginState
+  if (loginState) {
+    data.username = getterLsState().username
+  } else {
+    data.username = '游客'
+    ToolMsg('未登陆-Header', 'warning')
+    localStorage.setItem('osIP', '未登陆')
+    setterLsState(store)
+  }
+  return loginState
+
 }
 onMounted(() => {
   isLogin()
-})*/
+})
 
 </script>
 

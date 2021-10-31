@@ -25,13 +25,18 @@ const models = TypegooseModule.forFeature([
 
 @Module({
   imports: [
-    TypegooseModule.forRoot('mongodb://127.0.0.1/apiroom', {
+    // TypegooseModule.forRoot('mongodb://127.0.0.1/apiroom', {
+    //   useNewUrlParser: true,
+    //   useUnifiedTopology: true,
+    //   useCreateIndex: true,
+    //   useFindAndModify: false
+    // }),
+    TypegooseModule.forRoot('mongodb://song:242166@81.69.202.167/osapi?authSource=admin', {
       useNewUrlParser: true,
       useUnifiedTopology: true,
       useCreateIndex: true,
-      useFindAndModify: false
+      useFindAndModify: false,
     }),
-
     models
   ],
   providers: [DbService],

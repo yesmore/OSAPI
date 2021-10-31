@@ -43,6 +43,15 @@ export class CacheService {
     return JSON.parse(data)
   }
 
+  // 根据值删除缓存
+  async del(key: string): Promise<any> {
+    if (!this.client) {
+      await this.getClient();
+    }
+
+    await this.client.del(key);
+  }
+
   // 清除缓存
   async clear() {
     if (!this.client) {

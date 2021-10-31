@@ -18,7 +18,7 @@ export class DataController {
   ) {}
 
   @Get()
-  async index(@Req() req,) {
+  async index() {
     try {
       let cacheData = await this.cacheService.get('cacheData')
       // let cacheData = await this.dataService.findDataByCateID()
@@ -70,6 +70,7 @@ export class DataController {
               }
               await this.dataAttrService.add(attrsDTO)
             })
+            await this.cacheService.del('cacheData')
             return this.toolsService.returnObj(200, '创建成功', res)
           } else {
             return this.toolsService.returnObj(402, '创建失败')

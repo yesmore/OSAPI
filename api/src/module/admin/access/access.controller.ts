@@ -52,7 +52,7 @@ export class AccessController {
         status
       } = body
       if (status&&module_name&&module_name!==''&&action_name!==''&&action_name&& type&&url!==''&&url&&description!==''&&description) {
-        if( module_id !== '0') {
+        if( module_id != '0') {
           body.module_id = mongoose.Types.ObjectId(module_id)
         }
         let hasAccess = await this.accessService.find({ action_name })

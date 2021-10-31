@@ -5,9 +5,9 @@ export class Config {
   static sessionMaxAge = 30 * 1000 * 60;
   static uploadDir='upload' // 文件上传路径
 
-  static sessionKey = 'sessionKey'
+  static sessionKey = 'Open Source Api Key By YESMORE'
   static jwtKey = {
-    secret: 'yoursecret',
+    secret: 'Json_Web_Token_Key',
   };
 
   static redisOptions = {

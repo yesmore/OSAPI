@@ -9,7 +9,6 @@ import {DefaultMiddleware} from './middleware/default.middleware';
 // 配置数据库
 import {DbModule} from '@lib/db';
 // 全局配置
-import {Config} from './config/config'
 import {PublicModule} from './module/public/public.module';
 import { AuthModule } from './module/auth/auth.module';
 

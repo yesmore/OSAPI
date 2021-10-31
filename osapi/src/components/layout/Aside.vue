@@ -5,7 +5,7 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 const isCollapse = ref(true)
 let currentRoute = ref('1')
-console.log(router.currentRoute.value.path)
+// console.log(router.currentRoute.value.path)
 switch(router.currentRoute.value.path) {
   case '/home':
     currentRoute.value = '1'
@@ -110,14 +110,16 @@ const handleSelect = (key:any, keyPath:any) => {
           <span>设置</span>
         </div>
       </template>
-      <el-menu-item-group title="个人中心">
-        <el-menu-item index="4-1">修改密码</el-menu-item>
-      </el-menu-item-group>
       <el-menu-item-group>
         <template #title><span>权限管理</span></template>
         <el-menu-item @click="router.push('/setting/manager')" index="4-2">管理员管理</el-menu-item>
         <el-menu-item @click="router.push('/setting/role')" index="4-3">角色管理</el-menu-item>
         <el-menu-item @click="router.push('/setting/access')" index="4-4">授权中心</el-menu-item>
+      </el-menu-item-group>
+
+      <el-menu-item-group title="个人中心">
+        <el-menu-item @click="router.push('/setting/manager/update')" index="4-0">修改密码</el-menu-item>
+        <el-menu-item index="4-1">管理员操作手册</el-menu-item>
       </el-menu-item-group>
     </el-sub-menu>
 

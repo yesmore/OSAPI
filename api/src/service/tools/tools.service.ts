@@ -14,11 +14,11 @@ export class ToolsService {
   // 生成验证码
   captcha() {
     const captcha = svgCaptcha.create({
-      size: 1,
+      size: 4,
       fontSize: 50,
       width: 100,
       height: 40,
-      background: '#aaa'
+      background: '#cbcbcb'
     })
     return captcha
   }
@@ -73,4 +73,7 @@ export class ToolsService {
     }
 
   }
+
+
+
 }

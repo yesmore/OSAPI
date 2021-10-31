@@ -27,7 +27,7 @@ const dataCateList = ref([])
 const loading = ref(true)
 const VITE_APP_BASE_API = import.meta.env.VITE_APP_BASE_API
 
-// 获取数据类型
+// 获取数据分类
 const fetchDataType = async () => {
   let res = await http.get('/admin/dataCate')
   if(res.data.status === 200) {
@@ -134,6 +134,7 @@ const changeStatus = async (row) => {
       </div>
 
       <el-table
+        v-if="dataCateList.length>0"
         :data="dataCateList"
         empty-text="未登陆"
         :default-sort="{ prop: 'date', order: 'descending' }"
@@ -345,5 +346,4 @@ const changeStatus = async (row) => {
     </el-dialog>
   </div>
 
-  <!--<router-view v-else></router-view>-->
 </template>

@@ -56,6 +56,9 @@ const VITE_APP_BASE_API = import.meta.env.VITE_APP_BASE_API
 const pageSize = ref(2)
 const currentPage = ref(0)
 
+onMounted(() => {
+  fetchData()
+})
 // 获取数据
 const fetchData = async () => {
   let res = await http.get('/admin/data')
@@ -64,6 +67,7 @@ const fetchData = async () => {
       item.updatedAt = mongoDateFormat(item.updatedAt)
     })
     dataList.value = res.data.info
+    dataListBuffer.value = res.data.info
     hasDataList.value = true
     loading.value = false
     // console.log(dataList.value)
@@ -75,11 +79,6 @@ const fetchData = async () => {
   setTimeout(() => {
     loading.value = false
   },5000)
-}
-fetchData()
-
-const currentData = () => {
-
 }
 
 // 新增
@@ -165,9 +164,9 @@ const handleClear = (params) =>{
 
 <template>
   <div v-if="router.currentRoute.value.path==='/control/data'">
-    <div class=' animate__animated animate__fadeIn animate__faster'>
+    <div class='animate__animated animate__fadeIn animate__faster'>
       <div class="m-10" style="display: flex;align-items: center">
-        <DatePicker></DatePicker>
+        <DatePicker ></DatePicker>
         <el-button @click="router.push({name:'controlDataDetail',query:{ title: '新建数据', type: '新增'}} )" size="mini" plain type="success">
           <i class="iconfont icon-quanzhanyunying"></i>
           新增数据
@@ -181,7 +180,7 @@ const handleClear = (params) =>{
           导出
         </el-button>
         <SearchInput
-          v-if="hasDataList"
+          v-if="dataList.length>0"
           :size="'small'"
           :placeholder="'输入数据名称搜索'"
           :showData="dataList"
@@ -189,32 +188,34 @@ const handleClear = (params) =>{
           @on-clear="handleClear"
           class="ml-10"
         ></SearchInput>
-        <el-pagination
+        <!--<el-pagination
+          v-if="dataList.length>0"
           background
           layout="prev, pager, next"
           :page-size="pageSize"
           :total="dataList.length"
         >
-        </el-pagination>
+        </el-pagination>-->
       </div>
 
       <el-table
+        v-if="dataList.length>0"
         :data="dataList"
         empty-text="未登陆"
         :default-sort="{ prop: 'date', order: 'descending' }"
         @selection-change="handleSelectionChange"
-        v-loading="loading"
+
         :header-cell-style="{background: 'rgba(0, 0, 0, 0.02)'}"
         element-loading-spinner="el-icon-loading"
         element-loading-background="rgba(0, 0, 0, 0.01)"
         border
       >
         <el-table-column type="selection" align="center" label="选择" width="60"></el-table-column>
-        <el-table-column prop="title" label="数据名称" width="100"></el-table-column>
+        <el-table-column prop="title" label="数据名称" width="200"></el-table-column>
         <el-table-column prop="data_version" label="版本" width="100"></el-table-column>
-        <el-table-column prop="cate_id.title" label="数据分类">
+        <el-table-column label="数据分类">
           <template #default="scope">
-            {{ scope.row.dataCate[0].title }}
+            {{ scope.row.dataCate[0] ? scope.row.dataCate[0].title : '未选择分类' }}
           </template>
         </el-table-column>
         <el-table-column label="数据类型">
@@ -291,6 +292,7 @@ const handleClear = (params) =>{
       </el-table>
 
       <el-pagination
+        v-if="dataList.length>0"
         background
         class="mt-10 text-center"
         layout="prev, pager, next"
@@ -307,6 +309,7 @@ const handleClear = (params) =>{
         </el-form-item>
         <el-form-item label="所属分类" required label-width="200">
           <el-select
+            v-if="dataList.length>0"
             v-model="data.form.pid"
             placeholder="默认创建顶级分类"
             clearable
@@ -356,6 +359,7 @@ const handleClear = (params) =>{
         </el-form-item>
         <el-form-item label="所属分类" required label-width="200">
           <el-select
+            v-if="dataList.length>0"
             v-model="data.form.pid"
             placeholder="默认创建顶级分类"
             clearable

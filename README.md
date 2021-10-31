@@ -12,21 +12,33 @@
 
 <div style='float:right'><strong>阅读文档</strong>：中文版 | <a href='https://github.com/yesmore/OSAPI'>English</a></div>
 
-## ⚡️最新版本
-
-### v0.1.0_beta.1
-
-更新内容：
-
-> 数据、数据类型、数据分类、角色授权、管理员、权限的增删改查
-
-修复 Bug：
-
-> 无
-
-线上版本：最新版已上线
 
 
+## ⚡️更新列表
+
+<details>
+<summary><span style='font-size:20px;'><strong>v0.1.1_beta.1</strong></span></summary> 
+<ul>
+  <li style='margin-top:10px'><strong>更新内容</strong>：</li>
+    1、首页加入 <strong>Echarts</strong> 图表；<br>
+    2、新增个人中心修改管理员信息功能；<br>
+    3、新增获取管理员登陆 <strong>ip</strong> 功能。
+  <li style='margin-top:10px'><strong>修复 Bug</strong>：</li>  
+    1、修复了首页redis缓存问题（仅 datas 表使用redis， 后续添加其他表）。
+  <li style='margin-top:10px'>线上版本：最新版已上线</li>    
+</ul>    
+</details>    
+
+<details>
+<summary><span style='font-size:20px;'><strong>v0.1.0_beta.1</strong></span></summary> 
+<ul>
+  <li style='margin-top:10px'><strong>更新内容</strong>：</li>
+    1、数据、数据类型、数据分类、角色授权、管理员、权限的增删改查<br>
+  <li style='margin-top:10px'><strong>修复 Bug</strong>：</li>  
+    无
+  <li style='margin-top:10px'>线上版本：最新版已上线</li>    
+</ul>    
+</details>    
 
 
 查看 [其他版本](https://github.com/yesmore/OSAPI/releases)
@@ -51,10 +63,12 @@
 
 - 前端框架：**Vue 3.2**、**Element Plus 1.1.0** 
 - 后端框架：**Nestjs 7.6**
-- 数据库：**MongoDB 4.x **(typegoose 5.10)、**Redis** (nestjs-redis)
+- 数据库：**MongoDB 4.x** 、**Redis**
 - 打包工具：**Vite 2.5** (前端)、**Webpack** (后端)
 
 ### 项目截图
+
+<img src='https://cdn.jsdelivr.net/gh/yesmore/img/img/QQ图片20211031161458.png'/>
 
 <div style='display:flex;'><img style='width:270px' src='https://cdn.jsdelivr.net/gh/yesmore/img/img/}@(`7)1CO7)Q(IG{RR1FOG7.png'/><img style='width:270px' src='https://cdn.jsdelivr.net/gh/yesmore/img/img/6]K}FZR84{K5$}`H$DYW177.png'/></div>
 

@@ -24,11 +24,12 @@ const routes: Array<RouteRecordRaw> = [
         meta: {
           title: "首页",
           description: '后台管理平台主页'
-        }
+        },
       },
       {
         path: '/control',
         name: "Control",
+        redirect: '/control/focus',
         component: () => import("@/views/Control/index.vue"),
         meta: {
           title: "控制台",
@@ -104,6 +105,7 @@ const routes: Array<RouteRecordRaw> = [
       {
         path: '/setting',
         name: "setting",
+        redirect: '/setting/manager',
         component: () => import("@/views/Setting/index.vue"),
         meta: {
           title: "设置",
@@ -133,6 +135,15 @@ const routes: Array<RouteRecordRaw> = [
               description: 'RBAC-管理员管理'
             },
             component: () => import("@/views/Setting/Manager/index.vue"),
+          },
+          {
+            path: '/setting/manager/update',
+            name: "settingManagerUpdate",
+            meta: {
+              title: "管理员个人中心",
+              description: '管理员个人中心'
+            },
+            component: () => import("@/views/Setting/Manager/Update.vue"),
           },
           {
             path: '/setting/access',

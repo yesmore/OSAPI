@@ -13,7 +13,7 @@ import {ToolMsg} from "../../utils/ToolMsg";
 const store = useStore()
 const router = useRouter()
 
-console.log(getterLsState())
+// console.log(getterLsState())
 
 const isLogin = () => {
   http.get('/admin/login/isLogin').then(res => {
@@ -34,16 +34,16 @@ const isLogin = () => {
     }
   })
 }
-// isLogin()
-onBeforeRouteUpdate(() => {
-  // let qR = isLogin()
-  // if (qR) {
-  //   console.log(qR)
-  // }
-})
 
-// console.log('store状态：',store.getters.getLoginState, store.getters.getName)
-// console.log('本地存储：',getterLsState())
+onBeforeRouteUpdate((to, from) => {
+  document.title = router.currentRoute.value.meta.title
+    ? to.meta.title+'  |  OSAPI'
+    : 'OSAPI'
+})
+document.title = router.currentRoute.value.meta.title
+  ? router.currentRoute.value.meta.title+'  |  OSAPI'
+  : 'OSAPI'
+
 // 本地保存状态
 window.addEventListener("beforeunload",()=>{
   setterLsState(store)

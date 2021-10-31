@@ -49,6 +49,7 @@ const doLogin = () => {
     if (res.data.status === 200) {
       ToolMsg('登陆成功','success')
       localStorage.setItem('token', res.data.info.token)
+      localStorage.setItem('osIP', res.data.info.ip)
       store.commit('SET_LoginState', true)
       store.commit('SET_NAME', res.data.info.username)
       setterLsState(store)

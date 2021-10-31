@@ -7,7 +7,6 @@ import * as mongoose from "mongoose";
 import {JwtAuthGuard} from "../../auth/jwt-auth.guard";
 
 @Controller(`${Config.adminPath}/manager`)
-@UseGuards(JwtAuthGuard)
 export class ManagerController {
   constructor(
     private roleService:RoleService,
@@ -27,6 +26,7 @@ export class ManagerController {
   }
 
   @Post('create')
+  @UseGuards(JwtAuthGuard)
   async create(@Body() body) {
     try {
       if (body.username && body.password && body.role_id && body.username!=='' && body.password!=='') {
@@ -53,11 +53,13 @@ export class ManagerController {
   }
 
   @Post('edit')
+  @UseGuards(JwtAuthGuard)
   async edit(@Body() body, ) {
     try {
       let { username, password, _id, mobile, email,status } = body
       password = await this.toolsService.makeMd5(password)
-      let hasAdmin = await this.adminService.find({ _id })
+      let hasAdmin = await this.adminService.find({  _id })
+
       if (hasAdmin.length>0) { // 如果用户存在
         if(hasAdmin[0].status === status && hasAdmin[0].username === username && hasAdmin[0].password === password) {
           return this.toolsService.returnObj(403, '用户未修改')
@@ -78,7 +80,35 @@ export class ManagerController {
     }
   }
 
+  @Post('edits')
+  async editByName(@Body() body, ) {
+    try {
+      let { username, password, oldUsername, oldPassword } = body
+      password = await this.toolsService.makeMd5(password)
+      oldPassword = await this.toolsService.makeMd5(oldPassword)
+      let hasAdmin = await this.adminService.find({  username:oldUsername })
+
+      if (oldPassword !== hasAdmin[0].password) {
+        return this.toolsService.returnObj(406, '旧密码错误')
+      }
+
+      if (hasAdmin.length>0) { // 如果用户存在
+        if(hasAdmin[0].username === username && hasAdmin[0].password === password) {
+          return this.toolsService.returnObj(403, '用户未修改')
+        } else {
+          await this.adminService.update({username, password},{ username:oldUsername } )
+          return this.toolsService.returnObj(200, '修改成功')
+        }
+      } else {
+        return this.toolsService.returnObj(405, '用户不存在')
+      }
+    } catch (e) {
+      return this.toolsService.returnObj(501, '出错了')
+    }
+  }
+
   @Post('delete')
+  @UseGuards(JwtAuthGuard)
   async delete(@Body() body) {
     try {
       let { _id } = body
@@ -95,6 +125,7 @@ export class ManagerController {
   }
 
   @Get('roles')
+  @UseGuards(JwtAuthGuard)
   async roles() {
     try {
       let roles = await this.roleService.find()

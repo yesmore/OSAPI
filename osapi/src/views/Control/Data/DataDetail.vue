@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, reactive, watchEffect,watch, onMounted, onUnmounted } from 'vue'
 // import http from '@/utils/request'
-import {useRouter, onBeforeRouteUpdate, onBeforeRouteLeave} from 'vue-router'
+import { useRouter } from 'vue-router'
 import http from "../../../utils/request";
 import {mongoDateFormat} from "../../../utils/common";
 import {ToolMsg} from "../../../utils/ToolMsg";
@@ -205,6 +205,15 @@ const submitForm = () => {
   }
   hasSave.value = true
 }
+const submitForm1 = () => {
+  if(router.currentRoute.value.query.type==='编辑') {
+    editData()
+  } else {
+    newData()
+  }
+  hasSave.value = true
+  router.go(-1)
+}
 
 const changeDataType = (type) => {
   dataTypeList.value.map(item => {
@@ -246,6 +255,15 @@ const changeDataType = (type) => {
       <el-button @click="dialogFormVisible = true" size="mini" plain type="danger">
         <i class="iconfont icon-shanchu3"></i>
         清空
+      </el-button>
+      <el-button
+        class="f-r"
+        @click="submitForm1"
+        size="mini"
+        plain
+        :type="hasSave?'info':'success'">
+        <i class="iconfont icon-wenjian"></i>
+        保存并退出
       </el-button>
       <el-button
         class="f-r"
