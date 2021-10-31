@@ -17,28 +17,29 @@
 ## ⚡️更新列表
 
 <details>
-<summary><span style='font-size:20px;'><strong>v0.1.1_beta.1</strong></span></summary> 
+<summary><span style='font-size:24px;'><strong>v0.1.1_beta.1</strong></span></summary> 
 <ul>
-  <li style='margin-top:10px'><strong>更新内容</strong>：</li>
-    1、首页加入 <strong>Echarts</strong> 图表；<br>
-    2、新增个人中心修改管理员信息功能；<br>
-    3、新增获取管理员登陆 <strong>ip</strong> 功能。
-  <li style='margin-top:10px'><strong>修复 Bug</strong>：</li>  
-    1、修复了首页redis缓存问题（仅 datas 表使用redis， 后续添加其他表）。
-  <li style='margin-top:10px'>线上版本：最新版已上线</li>    
+  <li style='margin:10px 0;'><strong>更新内容</strong>：</li>
+    <div style='margin-bottom:8px'>1、首页加入 <strong>Echarts</strong> 图表；</div>
+    <div style='margin-bottom:8px'>2、新增个人中心修改管理员信息功能；</div>
+    <div style='margin-bottom:8px'>3、新增获取管理员登陆 <strong>ip</strong> 功能。</div>
+  <li style='margin:10px 0'><strong>修复 Bug</strong>：</li>  
+    <div style='margin-bottom:8px'>1、修复了首页redis缓存问题（仅 datas 表使用redis， 后续添加其他表）。</div>
+  <li style='margin:10px 0'><strong>线上版本</strong>：最新版已上线</li>    
 </ul>    
 </details>    
 
 <details>
-<summary><span style='font-size:20px;'><strong>v0.1.0_beta.1</strong></span></summary> 
+<summary><span style='font-size:24px;'><strong>v0.1.0_beta.1</strong></span></summary> 
 <ul>
-  <li style='margin-top:10px'><strong>更新内容</strong>：</li>
-    1、数据、数据类型、数据分类、角色授权、管理员、权限的增删改查<br>
-  <li style='margin-top:10px'><strong>修复 Bug</strong>：</li>  
-    无
-  <li style='margin-top:10px'>线上版本：最新版已上线</li>    
+  <li style='margin:10px 0'><strong>更新内容</strong>：</li>
+    <div style='margin-bottom:8px'>1、数据、数据类型、数据分类、角色授权、管理员、权限的增删改查</div>
+  <li style='margin:10px 0'><strong>修复 Bug</strong>：</li>  
+    <div style='margin-bottom:8px'>无</div>
+  <li style='margin:10px 0'>线上版本：最新版已上线</li>    
 </ul>    
 </details>    
+
 
 
 查看 [其他版本](https://github.com/yesmore/OSAPI/releases)
