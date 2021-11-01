@@ -80,7 +80,7 @@
 ## ⚡️更新列表
 
 <details>
-<summary><span style='font-size:24px;'><strong>v0.1.1_beta.1</strong></span></summary>
+<summary><span style='font-size:30px;'><strong>v0.1.1_beta.1</strong></span></summary>
 <table border="1">
     <tr>
         <th>日期</th>
@@ -107,7 +107,7 @@
 </details>
 
 <details>
-<summary><span style='font-size:24px;'><strong>v0.1.0_beta.1</strong></span></summary>
+<summary><span style='font-size:30px;'><strong>v0.1.0_beta.1</strong></span></summary>
 <table border="1">
     <tr>
         <th>日期</th>
@@ -115,13 +115,14 @@
         <th>Bug 修复</th>
     </tr>    
     <tr>
-        <td>2021/10/31</td>
+        <td>2021/10/25</td>
         <td>数据、数据类型、数据分类、角色授权、管理员、权限的增删改查</td>
         <td>无</td>
     </tr>
 </table>
     <strong>线上版本</strong>：最新版已上线
 </details>
+
 
 
 
