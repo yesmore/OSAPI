@@ -81,31 +81,48 @@
 
 <details>
 <summary><span style='font-size:24px;'><strong>v0.1.1_beta.1</strong></span></summary>
-<code>
-    <ul>
-  <li><strong>更新内容</strong>：</li>
-    1、首页加入 <strong>Echarts</strong> 图表；
-    2、新增个人中心修改管理员信息功能；
-    3、新增获取管理员登陆 <strong>ip</strong> 功能。
-  <li><strong>修复 Bug</strong>：</li> 
-    1、修复了首页redis缓存问题（仅 datas 表使用redis， 后续添加其他表）。
-  <li><strong>线上版本</strong>：最新版已上线</li>    
-</ul>    
-</code>    
-</details>    
+<table border="1">
+    <tr>
+        <th>日期</th>
+        <th>更新内容</th>
+        <th>Bug 修复</th>
+    </tr>    
+    <tr>
+        <td>2021/10/31</td>
+        <td>首页加入 <strong>Echarts</strong> 图表</td>
+        <td>修复了首页redis缓存问题（仅 datas 表使用redis， 后续添加其他表）</td>
+    </tr>
+    <tr>
+        <td>2021/10/31</td>
+        <td>新增个人中心修改管理员信息功能</td>
+        <td></td>
+    </tr>
+    <tr>
+        <td>2021/10/31</td>
+        <td>新增获取管理员登陆 ip 功能</td>
+        <td></td>
+    </tr>
+</table>
+    <strong>线上版本</strong>：最新版已上线
+</details>
 
 <details>
-<summary><span style='font-size:24px;'><strong>v0.1.0_beta.1</strong></span></summary> 
-<code>    
-<ul>
-  <li><strong>更新内容</strong>：</li>
-    1、数据、数据类型、数据分类、角色授权、管理员、权限的增删改查
-  <li><strong>修复 Bug</strong>：</li>
-    无
-  <li><strong>线上版本</strong>：最新版已上线</li>    
-</ul>    
-</code>   
-</details>    
+<summary><span style='font-size:24px;'><strong>v0.1.0_beta.1</strong></span></summary>
+<table border="1">
+    <tr>
+        <th>日期</th>
+        <th>更新内容</th>
+        <th>Bug 修复</th>
+    </tr>    
+    <tr>
+        <td>2021/10/31</td>
+        <td>数据、数据类型、数据分类、角色授权、管理员、权限的增删改查</td>
+        <td>无</td>
+    </tr>
+</table>
+    <strong>线上版本</strong>：最新版已上线
+</details>
+
 
 
 查看 [其他版本](https://github.com/yesmore/OSAPI/releases)
