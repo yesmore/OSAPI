@@ -11,7 +11,7 @@
 
 <div style='float:right;margin-bottom:20px;'><strong>阅读文档</strong>：中文版 | <a href='https://github.com/yesmore/OSAPI'>English</a></div>
 
-<br>
+
 
 # 📖 使用者须知
 
@@ -48,7 +48,7 @@
 
 > 接口失效请上 issues，本人会及时删除 
 
-| 接口名称                        | 集成地址   | 预览/1                                                       |
+| 接口名称                        | 集成地址   | 预览                                                         |
 | ------------------------------- | ---------- | ------------------------------------------------------------ |
 | 1、小舍图片Api                  | [开发中]() | [可预览](http://v2.aoau.top/pb?p=6)                          |
 | 2、开源中国                     | [开发中]() | [可预览](https://query.asilu.com/news/oschina-news)          |
@@ -81,25 +81,27 @@
 
 <details>
 <summary><span style='font-size:24px;'><strong>v0.1.1_beta.1</strong></span></summary> 
+<pre>
 <ul>
-  <li style='margin:10px 0;'><strong>更新内容</strong>：</li><br>
-    <div style='margin-bottom:8px'>1、首页加入 <strong>Echarts</strong> 图表；</div><br>
-    <div style='margin-bottom:8px'>2、新增个人中心修改管理员信息功能；</div><br>
-    <div style='margin-bottom:8px'>3、新增获取管理员登陆 <strong>ip</strong> 功能。</div><br>
-  <li style='margin:10px 0'><strong>修复 Bug</strong>：</li> <br> 
-    <div style='margin-bottom:8px'>1、修复了首页redis缓存问题（仅 datas 表使用redis， 后续添加其他表）。</div><br>
-  <li style='margin:10px 0'><strong>线上版本</strong>：最新版已上线</li>    
+  <li><strong>更新内容</strong>：</li>
+    1、首页加入 <strong>Echarts</strong> 图表；
+    2、新增个人中心修改管理员信息功能；
+    3、新增获取管理员登陆 <strong>ip</strong> 功能。
+  <li><strong>修复 Bug</strong>：</li> 
+    1、修复了首页redis缓存问题（仅 datas 表使用redis， 后续添加其他表）。
+  <li><strong>线上版本</strong>：最新版已上线</li>    
 </ul>    
+</pre>
 </details>    
 
 <details>
 <summary><span style='font-size:24px;'><strong>v0.1.0_beta.1</strong></span></summary> 
 <ul>
-  <li style='margin:10px 0'><strong>更新内容</strong>：</li><br>
-    <div style='margin-bottom:8px'>1、数据、数据类型、数据分类、角色授权、管理员、权限的增删改查</div><br>
-  <li style='margin:10px 0'><strong>修复 Bug</strong>：</li><br>
-    <div style='margin-bottom:8px'>无</div><br>
-  <li style='margin:10px 0'>线上版本：最新版已上线</li>    
+  <li><strong>更新内容</strong>：</li>
+    1、数据、数据类型、数据分类、角色授权、管理员、权限的增删改查
+  <li><strong>修复 Bug</strong>：</li>
+    无
+  <li><strong>线上版本</strong>：最新版已上线</li>    
 </ul>    
 </details>    
 
