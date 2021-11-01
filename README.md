@@ -80,9 +80,9 @@
 ## ⚡️更新列表
 
 <details>
-<summary><span style='font-size:24px;'><strong>v0.1.1_beta.1</strong></span></summary> 
-<pre>
-<ul>
+<summary><span style='font-size:24px;'><strong>v0.1.1_beta.1</strong></span></summary>
+<code>
+    <ul>
   <li><strong>更新内容</strong>：</li>
     1、首页加入 <strong>Echarts</strong> 图表；
     2、新增个人中心修改管理员信息功能；
@@ -91,11 +91,12 @@
     1、修复了首页redis缓存问题（仅 datas 表使用redis， 后续添加其他表）。
   <li><strong>线上版本</strong>：最新版已上线</li>    
 </ul>    
-</pre>
+</code>    
 </details>    
 
 <details>
 <summary><span style='font-size:24px;'><strong>v0.1.0_beta.1</strong></span></summary> 
+<code>    
 <ul>
   <li><strong>更新内容</strong>：</li>
     1、数据、数据类型、数据分类、角色授权、管理员、权限的增删改查
@@ -103,6 +104,7 @@
     无
   <li><strong>线上版本</strong>：最新版已上线</li>    
 </ul>    
+</code>   
 </details>    
 
 
