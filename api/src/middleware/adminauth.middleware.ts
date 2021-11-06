@@ -41,6 +41,11 @@ export class AdminauthMiddleware implements NestMiddleware {
             status: 404
           })
         }
+      } else {
+        res.send({
+          msg: '未登陆-中间件',
+          status: 401
+        })
       }
     }
   }

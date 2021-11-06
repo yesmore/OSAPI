@@ -18,7 +18,7 @@ export class AuthController {
   ){}
 
   @Post('doLogin')
-  async doLogin(@IpAddress() clinetIp: string,@Body() body, @Request() req, @Response() res) {
+  async doLogin(@IpAddress() clientIp: string,@Body() body, @Request() req, @Response() res) {
     // 接收数据
     let { username, password, code, currentCode } = body
     let userForToken = {
@@ -39,7 +39,7 @@ export class AuthController {
           this.toolsService.resSend(res, 200, '登陆成功', {
             username: user[0].username,
             token: token,
-            ip: clinetIp,
+            ip: clientIp,
           })
           // console.log(req.session.userInfo)
         } else {

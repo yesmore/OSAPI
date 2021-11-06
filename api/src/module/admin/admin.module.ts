@@ -23,7 +23,6 @@ import { JwtModule } from '@nestjs/jwt';
   imports: [
     PublicModule,
     RedisModule.register(Config.redisOptions), // Redis
-
   ],
   providers: [CacheService],
   controllers: [

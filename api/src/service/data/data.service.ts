@@ -64,6 +64,7 @@ export class DataService {
             as: 'relationDataList'
           }
         },
+        { $sort: { updatedAt : -1 } }
       ])
     } catch (e) {
       return []

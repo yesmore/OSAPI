@@ -26,7 +26,7 @@ export class DataController {
       if (!cacheData) {
         // 关联查询出数据分类、类型分类
         cacheData = await this.dataService.findDataByCateID()
-        this.cacheService.set('cacheData', cacheData)
+        await this.cacheService.set('cacheData', cacheData)
       }
       return this.toolsService.returnObj(200, '查询成功', cacheData)
     } catch (e) {
@@ -98,7 +98,8 @@ export class DataController {
             this.dataAttrService.update({attribute_value: item.attribute_value}, { _id:item._id })
           })
           await this.dataService.update(body,{ _id } )
-          await this.cacheService.clear();
+          this.cacheService.del('cacheData');
+
           return this.toolsService.returnObj(200, '修改成功')
         }
       } else {
@@ -116,6 +117,7 @@ export class DataController {
       let hasData = await this.dataService.find({ _id })
       if (hasData.length > 0) {
         await this.dataService.delete({ _id })
+        this.cacheService.del('cacheData');
         return this.toolsService.returnObj(200, '删除成功')
       } else {
         return this.toolsService.returnObj(405, '数据类型不存在')

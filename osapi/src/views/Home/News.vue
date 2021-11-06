@@ -30,9 +30,9 @@
             v-show="activity.status=='1'"
             :key="index"
             :type="index===0?'primary':''"
-            :timestamp="activity.title+'：'+activity.dataAttrs[0].attribute_value"
+            :timestamp="activity.dataAttrs[1].attribute_value+' '+activity.title"
           >
-           {{ activity.dataAttrs[2].attribute_value }}
+            {{ activity.dataAttrs[0].attribute_value }}
           </el-timeline-item>
         </el-timeline>
       </div>
@@ -55,9 +55,9 @@
     if(res.data.status === 200) {
       res.data.info.map((item) => {
         if (updateList.value.length<=2 && item.cate_id === '617cc01920962f3c9c705970') {
-          updateList.value.unshift(item)
+          updateList.value.push(item)
         } else if (newsList.value.length<=2 && item.cate_id === '617cc02220962f3c9c705971') {
-          newsList.value.unshift(item)
+          newsList.value.push(item)
         }
       })
     } else if (res.data.status === 404) {

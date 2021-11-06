@@ -2,6 +2,8 @@
 export class Config {
   static serverPort = 3009
   static adminPath = 'admin';
+  static apiPath = 'osapi'
+
   static sessionMaxAge = 30 * 1000 * 60;
   static uploadDir='upload' // 文件上传路径
 
